@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class System {
 
-    private HashMap<UUID, Alter> Alters = new HashMap<UUID, Alter>();
+    private static HashMap<UUID, Alter> Alters = new HashMap<UUID, Alter>();
     private UUID systemUUID;
     private Alter fronter;
     private UUID accountUUID;
@@ -37,6 +37,7 @@ public class System {
     public void setFronter(Alter newFronter){
         fronter = newFronter;
     }
+
 
 
 }
