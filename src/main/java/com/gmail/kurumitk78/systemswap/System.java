@@ -2,6 +2,8 @@ package com.gmail.kurumitk78.systemswap;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class System {
 
@@ -26,7 +28,7 @@ public class System {
         Alters.put(alterUUID, new Alter(name, alterUUID, systemUUID));
     }
 
-    public Alter getAlter(String uuid){
+    public Alter getAlter(UUID uuid){
         return Alters.getOrDefault(uuid, null);
     }
     public HashMap getAlterList(){
@@ -41,6 +43,20 @@ public class System {
     public void setFronter(Alter newFronter){
         fronter = newFronter;
     }
+
+    public boolean containsProxyTag(String text){
+        AtomicBoolean containstag = new AtomicBoolean();
+        containstag.set(false);
+        Alters.forEach((key, value) -> {
+            boolean containstaglambda = false;
+            int proxytaglength = value.getProxytag().length();
+            String shortenedtext = text.substring(0, proxytaglength-1);
+            if(shortenedtext.equals(value.getProxytag())){ containstag.set(true);}
+        });
+        return containstag.get();
+    }
+
+
 
 
 

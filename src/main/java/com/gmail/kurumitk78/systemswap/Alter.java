@@ -37,6 +37,7 @@ public class Alter {
     public void setProxytag (String newTag){
         proxytag = newTag;
     }
+
     public System getassociatedSystem()  {return SystemSwap.getSystemFromSystemUUID(associatedsystemUUID);}
     public UUID getUniqueID()            {return uniqueID;}
     public String getName()              {return name;}
