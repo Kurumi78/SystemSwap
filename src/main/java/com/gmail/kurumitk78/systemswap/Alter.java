@@ -7,12 +7,14 @@ public class Alter {
     private String description;
     private String proxytag;
     private UUID uniqueID;
+    private UUID associatedsystemUUID;
 
 
 
-    public Alter(String newName, UUID newuniqueID){
+    public Alter(String newName, UUID newuniqueID, UUID systemUUID){
         name = newName;
         uniqueID = newuniqueID;
+        associatedsystemUUID = systemUUID;
     }
 
     public void setName(String newName){

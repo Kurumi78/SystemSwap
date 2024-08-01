@@ -19,7 +19,7 @@ public class System {
 
     public void createAlter(String name){
         UUID alterUUID = new UUID(128,128);  //TO-DO add system to create UUIDs
-        Alters.put(alterUUID, new Alter(name, alterUUID));
+        Alters.put(alterUUID, new Alter(name, alterUUID, systemUUID));
     }
 
     public Alter getAlter(String uuid){
