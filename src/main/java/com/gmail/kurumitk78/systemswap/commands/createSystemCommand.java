@@ -25,7 +25,7 @@ public class createSystemCommand implements CommandExecutor {
             }
 
         }
-        else{ //Else for chekcing if player
+        else{ //Else for checking if player
             Bukkit.getLogger().log(Level.WARNING, "Only a player may use this command");
             return false;
         }
