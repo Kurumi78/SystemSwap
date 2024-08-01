@@ -7,7 +7,8 @@ import java.util.UUID;
 
 public final class SystemSwap extends JavaPlugin {
 
-    private HashMap<UUID, System> systemMap = new HashMap<UUID, System>();
+    private static HashMap<UUID, System> systemMapSystemUUID = new HashMap<UUID, System>();
+    private static HashMap<UUID, System> systemMapPlayerUUID = new HashMap<UUID, System>();
 
     @Override
     public void onEnable() {
@@ -20,11 +21,16 @@ public final class SystemSwap extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public System getSystem(UUID playerUUID){
-        return systemMap.get(playerUUID);
+    public static System getSystemFromPlayerUUID(UUID playerUUID){
+        return systemMapPlayerUUID.get(playerUUID);
+    }
+
+    public static System getSystemFromSystemUUID(UUID systemUUID){
+        return systemMapSystemUUID.get(systemUUID);
     }
     public void createSystem(UUID playerUUID){
         UUID systemUUID = new UUID(128,128);
-        systemMap.put(playerUUID, new System(systemUUID, playerUUID));
+        systemMapPlayerUUID.put(playerUUID, new System(systemUUID, playerUUID));
+        systemMapSystemUUID.put(systemUUID, systemMapPlayerUUID.get(playerUUID));
     }
 }
