@@ -8,6 +8,7 @@ public class Alter {
     private String proxytag;
     private UUID uniqueID;
     private UUID associatedsystemUUID;
+    private String nickname;
 
 
 
@@ -15,6 +16,10 @@ public class Alter {
         name = newName;
         uniqueID = newuniqueID;
         associatedsystemUUID = systemUUID;
+    }
+
+    public void setNickname(String newNick){
+        nickname = newNick;
     }
 
     public void setName(String newName){
@@ -26,8 +31,10 @@ public class Alter {
     public void setProxytag (String newTag){
         proxytag = newTag;
     }
-    public UUID getUniqueID() {return uniqueID;}
-    public String getName() {return name;}
-    public String getDescription() {return description;}
-    public String getProxytag()    {return proxytag;}
+    public System getassociatedSystem()  {return SystemSwap.getSystemFromSystemUUID(associatedsystemUUID);}
+    public UUID getUniqueID()            {return uniqueID;}
+    public String getName()              {return name;}
+    public String getDescription()       {return description;}
+    public String getProxytag()          {return proxytag;}
+    public String getNickname()          {return nickname;}
 }
