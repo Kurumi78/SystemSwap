@@ -17,7 +17,10 @@ public class System {
 
     }
 
-
+    public void createAlter(String name){
+        String alterUUID = "";  //TO-DO add system to create UUIDs
+        Alters.put(alterUUID, new Alter(name, alterUUID));
+    }
 
     public Alter getAlter(String uuid){
         return Alters.getOrDefault(uuid, null);
