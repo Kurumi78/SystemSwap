@@ -23,7 +23,8 @@ public final class SystemSwap extends JavaPlugin {
     public System getSystem(UUID playerUUID){
         return systemMap.get(playerUUID);
     }
-    public void createSystem(UUID playerUUID, String systemUUID){
+    public void createSystem(UUID playerUUID){
+        String systemUUID = ""; //TO-DO add system to create UUIDs
         systemMap.put(playerUUID, new System(systemUUID, playerUUID));
     }
 }
