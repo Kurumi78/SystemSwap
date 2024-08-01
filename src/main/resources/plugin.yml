@@ -1,0 +1,4 @@
+name: SystemSwap
+version: '${project.version}'
+main: com.gmail.kurumitk78.systemswap.SystemSwap
+api-version: '1.20'
