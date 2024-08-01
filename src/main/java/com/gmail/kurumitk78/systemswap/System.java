@@ -5,20 +5,20 @@ import java.util.UUID;
 
 public class System {
 
-    private HashMap<String, Alter> Alters = new HashMap<String, Alter>();
-    private String systemUUID;
+    private HashMap<UUID, Alter> Alters = new HashMap<UUID, Alter>();
+    private UUID systemUUID;
     private Alter fronter;
     private UUID accountUUID;
 
 
-    public System(String setsystemUUID, UUID setaccountUUID){
+    public System(UUID setsystemUUID, UUID setaccountUUID){
         systemUUID = setsystemUUID;
         accountUUID = setaccountUUID;
 
     }
 
     public void createAlter(String name){
-        String alterUUID = "";  //TO-DO add system to create UUIDs
+        UUID alterUUID = new UUID(128,128);  //TO-DO add system to create UUIDs
         Alters.put(alterUUID, new Alter(name, alterUUID));
     }
 
@@ -28,7 +28,7 @@ public class System {
     public HashMap getAlterList(){
         return Alters;
     }
-    public String getSystemUUID(){
+    public UUID getSystemUUID(){
         return systemUUID;
     }
     public UUID getAccountUUID(){

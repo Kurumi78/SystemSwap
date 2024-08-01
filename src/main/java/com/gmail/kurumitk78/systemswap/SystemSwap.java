@@ -24,7 +24,7 @@ public final class SystemSwap extends JavaPlugin {
         return systemMap.get(playerUUID);
     }
     public void createSystem(UUID playerUUID){
-        String systemUUID = ""; //TO-DO add system to create UUIDs
+        UUID systemUUID = new UUID(128,128);
         systemMap.put(playerUUID, new System(systemUUID, playerUUID));
     }
 }
