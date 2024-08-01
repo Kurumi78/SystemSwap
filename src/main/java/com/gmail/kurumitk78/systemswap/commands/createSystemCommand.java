@@ -16,7 +16,7 @@ public class createSystemCommand implements CommandExecutor {
         if(commandSender instanceof Player) {
             if(SystemSwap.getSystemFromPlayerUUID(((Player) commandSender).getUniqueId()) == null){
                 UUID returnedUUID = SystemSwap.createSystem(((Player) commandSender).getUniqueId());
-                commandSender.sendMessage("System created using unique ID" + returnedUUID.toString());
+                commandSender.sendMessage("System created using unique ID " + returnedUUID.toString());
                 return false;
             }
             else{

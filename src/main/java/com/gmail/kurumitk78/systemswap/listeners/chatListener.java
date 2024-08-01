@@ -28,7 +28,9 @@ public class chatListener implements Listener {
                     if(shortenedtext.equals(value.getProxytag())){
                         atomicAlterUUID.set(value.getUniqueID());}
                 });
-                playersSystem.setFronter(playersSystem.getAlter(atomicAlterUUID.get()));
+                if(!playersSystem.getFronter().equals(playersSystem.getAlter(atomicAlterUUID.get()))) {
+                    playersSystem.setFronter(playersSystem.getAlter(atomicAlterUUID.get()));
+                }
             }
         }
 

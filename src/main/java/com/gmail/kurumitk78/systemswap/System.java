@@ -1,5 +1,7 @@
 package com.gmail.kurumitk78.systemswap;
 
+import org.bukkit.Bukkit;
+
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -19,13 +21,14 @@ public class System {
 
     }
 
-    public void createAlter(String name){
+    public UUID createAlter(String name){
         UUID alterUUID = UUID.randomUUID();
         while(!Alter.getAlterFromUUID(alterUUID).equals(null)){ //I dont know if Java will super rarely create duplicated. But lets avoid that.
             alterUUID = UUID.randomUUID();
         }
 
         Alters.put(alterUUID, new Alter(name, alterUUID, systemUUID));
+        return alterUUID;
     }
 
     public Alter getAlter(UUID uuid){
@@ -40,8 +43,16 @@ public class System {
     public UUID getAccountUUID(){
         return accountUUID;
     }
+
+    public Alter getFronter() {
+        return fronter;
+    }
+
     public void setFronter(Alter newFronter){
         fronter = newFronter;
+        if(!newFronter.getNickname().equals(null)){
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nick " + Bukkit.getPlayer(accountUUID).getName() + " " + newFronter.getNickname());
+        }
     }
 
     public boolean containsProxyTag(String text){
