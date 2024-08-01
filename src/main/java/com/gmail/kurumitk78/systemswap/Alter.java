@@ -1,8 +1,13 @@
 package com.gmail.kurumitk78.systemswap;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class Alter {
+    private static HashMap<UUID, Alter> AllAlters = new HashMap<UUID, Alter>();
+
+
+
     private String name;
     private String description;
     private String proxytag;
@@ -12,10 +17,11 @@ public class Alter {
 
 
 
-    public Alter(String newName, UUID newuniqueID, UUID systemUUID){
+    public Alter(String newName, UUID newUniqueID, UUID systemUUID){
         name = newName;
-        uniqueID = newuniqueID;
+        uniqueID = newUniqueID;
         associatedsystemUUID = systemUUID;
+        AllAlters.put(newUniqueID, this);
     }
 
     public void setNickname(String newNick){
@@ -37,4 +43,12 @@ public class Alter {
     public String getDescription()       {return description;}
     public String getProxytag()          {return proxytag;}
     public String getNickname()          {return nickname;}
+
+    public static Alter getAlterFromUUID(UUID togetUUID){
+        return AllAlters.getOrDefault(togetUUID, null);
+    }
+    public static void addAltertoAllAlters(UUID toAddUUID, Alter toAddAlter){
+       AllAlters.put(toAddUUID, toAddAlter);
+    }
+
 }

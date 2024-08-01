@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class System {
 
-    private static HashMap<UUID, Alter> Alters = new HashMap<UUID, Alter>();
+    private HashMap<UUID, Alter> Alters = new HashMap<UUID, Alter>();
     private UUID systemUUID;
     private Alter fronter;
     private UUID accountUUID;
@@ -18,7 +18,11 @@ public class System {
     }
 
     public void createAlter(String name){
-        UUID alterUUID = new UUID(128,128);  //TO-DO add system to create UUIDs
+        UUID alterUUID = UUID.randomUUID();
+        while(!Alter.getAlterFromUUID(alterUUID).equals(null)){ //I dont know if Java will super rarely create duplicated. But lets avoid that.
+            alterUUID = UUID.randomUUID();
+        }
+
         Alters.put(alterUUID, new Alter(name, alterUUID, systemUUID));
     }
 
