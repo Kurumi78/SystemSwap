@@ -1,4 +1,4 @@
-initial readme
+A tool for Systems/plurals for self expression. Similar to Pluralkit on discord but for bukkit based minecraft servers.
 
 
 
