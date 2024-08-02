@@ -2,18 +2,19 @@ package com.gmail.kurumitk78.systemswap;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Alter {
     private static HashMap<UUID, Alter> AllAlters = new HashMap<UUID, Alter>();
 
 
 
-    private String name;
-    private String description;
-    private String proxytag;
+    private String name = "";
+    private String description = "";
+    private String proxytag = "";
     private UUID uniqueID;
     private UUID associatedsystemUUID;
-    private String nickname;
+    private String nickname = "";
 
 
 
@@ -47,6 +48,15 @@ public class Alter {
 
     public static Alter getAlterFromUUID(UUID togetUUID){
         return AllAlters.getOrDefault(togetUUID, null);
+    }
+    public static Alter getAlterfromName(String nameinput, UUID playerUUID){
+       System unknownaltersystem =  SystemSwap.getSystemFromPlayerUUID(playerUUID);
+       HashMap<UUID, Alter> altermap = unknownaltersystem.getAlterList();
+        AtomicReference<Alter> atomicAlter = new AtomicReference<>();
+        altermap.forEach((key, value) -> {
+            if(value.getName().equalsIgnoreCase(nameinput)){ atomicAlter.set(value);}
+        });
+        return atomicAlter.get();
     }
     public static void addAltertoAllAlters(UUID toAddUUID, Alter toAddAlter){
        AllAlters.put(toAddUUID, toAddAlter);

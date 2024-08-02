@@ -1,11 +1,14 @@
 package com.gmail.kurumitk78.systemswap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
 
 public class System {
 
@@ -23,7 +26,7 @@ public class System {
 
     public UUID createAlter(String name){
         UUID alterUUID = UUID.randomUUID();
-        while(!Alter.getAlterFromUUID(alterUUID).equals(null)){ //I dont know if Java will super rarely create duplicated. But lets avoid that.
+        while(Objects.nonNull(Alter.getAlterFromUUID(alterUUID))){ //I dont know if Java will super rarely create duplicated. But lets avoid that.
             alterUUID = UUID.randomUUID();
         }
 
@@ -49,9 +52,15 @@ public class System {
     }
 
     public void setFronter(Alter newFronter){
+        if(Objects.nonNull(fronter)) {
+            if (fronter.getUniqueID() == newFronter.getUniqueID()) {
+                return;
+            }
+        }
         fronter = newFronter;
-        if(!newFronter.getNickname().equals(null)){
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nick " + Bukkit.getPlayer(accountUUID).getName() + " " + newFronter.getNickname());
+        Bukkit.getPlayer(accountUUID).sendMessage("Fronter changed to " + newFronter.getName());
+        if(newFronter.getNickname() != ""){
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nick player " + Bukkit.getPlayer(accountUUID).getName() + " " + newFronter.getNickname());
         }
     }
 
@@ -61,8 +70,9 @@ public class System {
         Alters.forEach((key, value) -> {
             boolean containstaglambda = false;
             int proxytaglength = value.getProxytag().length();
-            String shortenedtext = text.substring(0, proxytaglength-1);
-            if(shortenedtext.equals(value.getProxytag())){ containstag.set(true);}
+            String shortenedtext = text.substring(0, proxytaglength);
+           // Bukkit.getLogger().log(Level.WARNING, "proxylength is " + proxytaglength + " and shortenedtext is" + shortenedtext + " and proxy tag is " + value.getProxytag());
+            if(shortenedtext.equals(value.getProxytag())&& value.getProxytag().length() != 0){ containstag.set(true);}
         });
         return containstag.get();
     }
