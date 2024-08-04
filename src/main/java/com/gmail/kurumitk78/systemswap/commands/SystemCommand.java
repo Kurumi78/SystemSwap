@@ -29,8 +29,8 @@ public class SystemCommand implements CommandExecutor {
 
 
     private void createAlterCommand(Player player){
-        if(SystemSwap.getSystemFromPlayerUUID(((Player) player).getUniqueId()) == null){
-            UUID returnedUUID = SystemSwap.createSystem(((Player) player).getUniqueId());
+        if(SystemSwap.getSystemFromPlayerUUID(player.getUniqueId()) == null){
+            UUID returnedUUID = SystemSwap.createSystem(player.getUniqueId());
             player.sendMessage("System created using unique ID " + returnedUUID.toString());
 
         }
