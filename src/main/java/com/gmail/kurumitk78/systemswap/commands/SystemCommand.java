@@ -23,9 +23,8 @@ public class SystemCommand implements CommandExecutor {
         }
         else{ //Else for checking if player
             Bukkit.getLogger().log(Level.WARNING, "Only a player may use this command");
-            return false;
         }
-
+    return false;
     }
 
 
