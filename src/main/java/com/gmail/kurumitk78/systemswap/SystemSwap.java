@@ -1,7 +1,7 @@
 package com.gmail.kurumitk78.systemswap;
 
 import com.gmail.kurumitk78.systemswap.commands.AlterCommand;
-import com.gmail.kurumitk78.systemswap.commands.createSystemCommand;
+import com.gmail.kurumitk78.systemswap.commands.SystemCommand;
 import com.gmail.kurumitk78.systemswap.listeners.chatListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -19,7 +19,7 @@ public final class SystemSwap extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.getCommand("createsystem").setExecutor(new createSystemCommand());
+        this.getCommand("system").setExecutor(new SystemCommand());
         this.getCommand("alters").setExecutor(new AlterCommand());
         Bukkit.getPluginManager().registerEvents(new chatListener(), this);
 

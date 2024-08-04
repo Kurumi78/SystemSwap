@@ -10,18 +10,14 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 import java.util.logging.Level;
 
-public class createSystemCommand implements CommandExecutor {
+public class SystemCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if(commandSender instanceof Player) {
-            if(SystemSwap.getSystemFromPlayerUUID(((Player) commandSender).getUniqueId()) == null){
-                UUID returnedUUID = SystemSwap.createSystem(((Player) commandSender).getUniqueId());
-                commandSender.sendMessage("System created using unique ID " + returnedUUID.toString());
-                return false;
-            }
-            else{
-                commandSender.sendMessage("You already have a system created.");
-                return false;
+            switch(args[0].toLowerCase()) {
+                case "create":
+                    createAlterCommand((Player) commandSender);
+                    break;
             }
 
         }
@@ -31,4 +27,19 @@ public class createSystemCommand implements CommandExecutor {
         }
 
     }
+
+
+    private void createAlterCommand(Player player){
+        if(SystemSwap.getSystemFromPlayerUUID(((Player) player).getUniqueId()) == null){
+            UUID returnedUUID = SystemSwap.createSystem(((Player) player).getUniqueId());
+            player.sendMessage("System created using unique ID " + returnedUUID.toString());
+
+        }
+        else{
+            player.sendMessage("You already have a system created.");
+
+        }
+
+    }
+
 }
