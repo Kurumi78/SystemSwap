@@ -41,4 +41,8 @@ public class SystemCommand implements CommandExecutor {
 
     }
 
+    private void deleteAlterCommand(Player player){
+
+    }
+
 }

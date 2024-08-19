@@ -25,7 +25,7 @@ public class chatListener implements Listener {
 
         if(event.isAsynchronous()){
             Player chatter = event.getPlayer();
-        if(!SystemSwap.getSystemFromPlayerUUID(chatter.getUniqueId()).equals(null)){
+        if(SystemSwap.getSystemFromPlayerUUID(chatter.getUniqueId()) != null){
             System playersSystem = SystemSwap.getSystemFromPlayerUUID(event.getPlayer().getUniqueId());
             if(playersSystem.containsProxyTag(event.getMessage())){
                 ArrayList<Alter> alters = new ArrayList<>();
