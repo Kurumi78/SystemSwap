@@ -52,4 +52,10 @@ public final class SystemSwap extends JavaPlugin {
         systemMapSystemUUID.put(systemUUID, systemMapPlayerUUID.get(playerUUID));
         return systemUUID;
     }
+    public static void deleteSystemPlayerUUID(UUID playerUUID){
+        systemMapPlayerUUID.remove(playerUUID);
+    }
+    public static void deleteSystemSystemUUID(UUID systemUUID){
+        systemMapSystemUUID.remove(systemUUID);
+    }
 }
