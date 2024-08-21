@@ -25,6 +25,8 @@ public class SystemCommand implements CommandExecutor {
                 case "delete":
                     deleteAlterCommand((Player) commandSender);
                     break;
+                case "front":
+                    setFronterCommand((Player) commandSender, args[1]);
             }
 
         }
