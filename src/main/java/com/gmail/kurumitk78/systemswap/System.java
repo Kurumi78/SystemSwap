@@ -4,6 +4,8 @@ import com.gmail.kurumitk78.systemswap.database.SQLiteHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,6 +26,11 @@ public class System {
         accountUUID = setaccountUUID;
 
     }
+    public System(UUID setsystemUUID, UUID setaccountUUID, ResultSet AlterData) throws SQLException {
+        systemUUID = setsystemUUID;
+        accountUUID = setaccountUUID;
+        initPlayerAlters(AlterData);
+    }
 
     public UUID createAlter(String name){
         UUID alterUUID = UUID.randomUUID();
@@ -34,6 +41,18 @@ public class System {
         Alters.put(alterUUID, new Alter(name, alterUUID, systemUUID));
         SQLiteHandler.dbCall("INSERT INTO alters(alterUUID, name, systemUUID) VALUES('" + alterUUID.toString() + "', '" + name + "', '" + systemUUID + "');");
         return alterUUID;
+    }
+    public void initPlayerAlters(ResultSet playerData) throws SQLException {
+        while(playerData.next()){
+           UUID alterUUID = UUID.fromString(playerData.getString("alterUUID"));
+            Alters.put(alterUUID, new Alter(playerData.getString("name"),alterUUID,systemUUID));
+            if(playerData.getString("proxytag") != null){
+                Alters.get(alterUUID).setProxytag(playerData.getString("proxytag"));
+            }
+            if(playerData.getString("nickname") != null){
+                Alters.get(alterUUID).setProxytag(playerData.getString("nickname"));
+            }
+        }
     }
 
     public Alter getAlter(UUID uuid){
@@ -60,6 +79,7 @@ public class System {
             }
         }
         fronter = newFronter;
+        SQLiteHandler.dbCall("UPDATE systems SET 'fronterUUID' = '"+ newFronter.getUniqueID().toString() + "' WHERE systemUUID = ' " +systemUUID + "';");
         Bukkit.getPlayer(accountUUID).sendMessage("Fronter changed to " + newFronter.getName());
         if(newFronter.getNickname() != ""){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nick player " + Bukkit.getPlayer(accountUUID).getName() + " " + newFronter.getNickname());

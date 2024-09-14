@@ -9,6 +9,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -21,6 +23,8 @@ public final class SystemSwap extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        this.saveDefaultConfig();
+        SystemSwapInstance = this;
         SQLiteHandler.connect();
        if(this.getConfig().get("pluginSetup") != "true"){
            SQLiteHandler.firstRun();
@@ -31,7 +35,7 @@ public final class SystemSwap extends JavaPlugin {
         this.getCommand("alters").setExecutor(new AlterCommand());
         Bukkit.getPluginManager().registerEvents(new chatListener(), this);
 
-        SystemSwapInstance = this;
+
     }
 
     @Override
@@ -58,7 +62,7 @@ public final class SystemSwap extends JavaPlugin {
         }
         systemMapPlayerUUID.put(playerUUID, new System(systemUUID, playerUUID));
         systemMapSystemUUID.put(systemUUID, systemMapPlayerUUID.get(playerUUID));
-        SQLiteHandler.dbCall("INSERT INTO systems(systemUUID, PlayerUUID) VALUES('" + systemUUID.toString() + "', '" + playerUUID.toString() + "');");
+        SQLiteHandler.dbCall("INSERT INTO systems(systemUUID, playerUUID) VALUES('" + systemUUID.toString() + "', '" + playerUUID.toString() + "');");
         return systemUUID;
     }
     public static void deleteSystemPlayerUUID(UUID playerUUID){
@@ -67,4 +71,18 @@ public final class SystemSwap extends JavaPlugin {
     public static void deleteSystemSystemUUID(UUID systemUUID){
         systemMapSystemUUID.remove(systemUUID);
     }
+
+    public static void initPlayerSystem(ResultSet playerData, UUID playerUUID) throws SQLException {
+        UUID systemUUID;
+        playerData.beforeFirst();
+        systemUUID = UUID.fromString(playerData.getString("systemUUID"));
+        ResultSet alterData = SQLiteHandler.dbCallReturn("SELECT * FROM alters WHERE systemUUID =" +systemUUID);
+
+        systemMapPlayerUUID.put(playerUUID, new System(systemUUID, playerUUID, alterData));
+        systemMapSystemUUID.put(systemUUID, systemMapPlayerUUID.get(playerUUID));
+
+
+    }
+
+
 }

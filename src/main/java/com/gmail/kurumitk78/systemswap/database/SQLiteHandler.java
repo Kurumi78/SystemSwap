@@ -2,10 +2,7 @@ package com.gmail.kurumitk78.systemswap.database;
 
 import com.gmail.kurumitk78.systemswap.SystemSwap;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import static com.gmail.kurumitk78.systemswap.SystemSwap.SystemSwapInstance;
 
@@ -33,7 +30,7 @@ public class SQLiteHandler {
     public static void firstRun(){
         String systemTable = "CREATE TABLE IF NOT EXISTS systems (\n"
                 + " systemUUID TEXT PRIMARY KEY,\n"
-                + " PlayerUUID TEXT NOT NULL,\n"
+                + " playerUUID TEXT NOT NULL,\n"
                 + " fronter TEXT\n"
                 + ");";
 
@@ -42,6 +39,7 @@ public class SQLiteHandler {
                 + " name TEXT NOT NULL,\n"
                 + " nickname TEXT,\n"
                 + " proxytag TEXT,\n"
+                + " description TEXT,\n"
                 + " systemUUID TEXT NOT NULL\n"
                 + ");";
             try{
@@ -53,6 +51,7 @@ public class SQLiteHandler {
             }
 
     }
+    //  SQLiteHandler.dbCall("statement");
     public static void dbCall (String sqlStatement){
         try{
             Statement stmt = dbConnection.createStatement();
@@ -60,5 +59,15 @@ public class SQLiteHandler {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public static ResultSet dbCallReturn(String sqlStatement){
+        try{
+            Statement stmt = dbConnection.createStatement();
+            return stmt.executeQuery(sqlStatement);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
     }
 }
