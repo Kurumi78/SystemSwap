@@ -28,20 +28,20 @@ public class Alter {
     }
 
     public void setNickname(String newNick){
-        SQLiteHandler.dbCall("UPDATE alters SET 'nickname' = '"+ newNick + "' WHERE alterUUID = ' " +uniqueID.toString() + "';");
+        SQLiteHandler.dbCall("UPDATE alters SET 'nickname' = '"+ newNick + "' WHERE alterUUID = '" +uniqueID.toString() + "';");
         nickname = newNick;
     }
 
     public void setName(String newName){
-        SQLiteHandler.dbCall("UPDATE alters SET 'name' = '"+ newName + "' WHERE alterUUID = ' " +uniqueID.toString() + "';");
+        SQLiteHandler.dbCall("UPDATE alters SET 'name' = '"+ newName + "' WHERE alterUUID = '" +uniqueID.toString() + "';");
         name = newName;
     }
     public void setDescription(String newDescription){
-        SQLiteHandler.dbCall("UPDATE alters SET 'description' = '"+ newDescription + "' WHERE alterUUID = ' " +uniqueID.toString() + "';");
+        SQLiteHandler.dbCall("UPDATE alters SET 'description' = '"+ newDescription + "' WHERE alterUUID = '" +uniqueID.toString() + "';");
         description = newDescription;
     }
     public void setProxytag (String newTag){
-        SQLiteHandler.dbCall("UPDATE alters SET 'proxytag' = '"+ newTag + "' WHERE alterUUID = ' " +uniqueID.toString() + "';");
+        SQLiteHandler.dbCall("UPDATE alters SET 'proxytag' = '"+ newTag + "' WHERE alterUUID = '" +uniqueID.toString() + "';");
         proxytag = newTag;
     }
 

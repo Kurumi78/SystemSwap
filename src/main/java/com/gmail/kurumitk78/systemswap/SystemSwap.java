@@ -3,6 +3,7 @@ package com.gmail.kurumitk78.systemswap;
 import com.gmail.kurumitk78.systemswap.commands.AlterCommand;
 import com.gmail.kurumitk78.systemswap.commands.SystemCommand;
 import com.gmail.kurumitk78.systemswap.database.SQLiteHandler;
+import com.gmail.kurumitk78.systemswap.listeners.PlayerJoinListener;
 import com.gmail.kurumitk78.systemswap.listeners.chatListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -25,15 +26,16 @@ public final class SystemSwap extends JavaPlugin {
     public void onEnable() {
         this.saveDefaultConfig();
         SystemSwapInstance = this;
-        SQLiteHandler.connect();
        if(this.getConfig().get("pluginSetup") != "true"){
            SQLiteHandler.firstRun();
            this.getConfig().set("pluginSetup", "true");
+           this.saveConfig();
        }
 
         this.getCommand("system").setExecutor(new SystemCommand());
         this.getCommand("alters").setExecutor(new AlterCommand());
         Bukkit.getPluginManager().registerEvents(new chatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
 
 
     }
@@ -74,9 +76,11 @@ public final class SystemSwap extends JavaPlugin {
 
     public static void initPlayerSystem(ResultSet playerData, UUID playerUUID) throws SQLException {
         UUID systemUUID;
-        playerData.beforeFirst();
         systemUUID = UUID.fromString(playerData.getString("systemUUID"));
-        ResultSet alterData = SQLiteHandler.dbCallReturn("SELECT * FROM alters WHERE systemUUID =" +systemUUID);
+        playerData.close();
+        ResultSet alterData = SQLiteHandler.dbCallReturn("SELECT * FROM alters WHERE systemUUID = '" +systemUUID + "';");
+
+
 
         systemMapPlayerUUID.put(playerUUID, new System(systemUUID, playerUUID, alterData));
         systemMapSystemUUID.put(systemUUID, systemMapPlayerUUID.get(playerUUID));

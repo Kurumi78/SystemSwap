@@ -6,9 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -43,16 +41,26 @@ public class System {
         return alterUUID;
     }
     public void initPlayerAlters(ResultSet playerData) throws SQLException {
+        HashMap<UUID, String> proxyData = new HashMap<UUID, String>();
+        HashMap<UUID, String> nicknameData = new HashMap<UUID, String>();
+
         while(playerData.next()){
-           UUID alterUUID = UUID.fromString(playerData.getString("alterUUID"));
+            UUID alterUUID = UUID.fromString(playerData.getString("alterUUID"));
+                    proxyData.put(alterUUID, playerData.getString("proxytag"));
+                    nicknameData.put(alterUUID, playerData.getString("nickname"));
             Alters.put(alterUUID, new Alter(playerData.getString("name"),alterUUID,systemUUID));
-            if(playerData.getString("proxytag") != null){
-                Alters.get(alterUUID).setProxytag(playerData.getString("proxytag"));
-            }
-            if(playerData.getString("nickname") != null){
-                Alters.get(alterUUID).setProxytag(playerData.getString("nickname"));
-            }
         }
+        playerData.close();
+        proxyData.forEach((key, value) -> {
+            if(value != null){
+                Alters.get(key).setProxytag(value);
+            }
+        });
+        nicknameData.forEach((key, value) -> {
+            if(value != null){
+                Alters.get(key).setNickname(value);
+            }
+        });
     }
 
     public Alter getAlter(UUID uuid){
