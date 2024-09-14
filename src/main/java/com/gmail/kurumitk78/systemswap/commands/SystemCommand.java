@@ -28,6 +28,10 @@ public class SystemCommand implements CommandExecutor {
                     break;
                 case "front":
                     setFronterCommand((Player) commandSender, args[1]);
+                    break;
+                default:
+                    commandSender.sendMessage("Command usage: /system (create/delete/front) <New Fronter>");
+
             }
 
         }
@@ -56,6 +60,7 @@ public class SystemCommand implements CommandExecutor {
              UUID systemUUID = SystemSwap.getSystemFromPlayerUUID(player.getUniqueId()).getSystemUUID();
                 SystemSwap.deleteSystemSystemUUID(systemUUID);
                 SystemSwap.deleteSystemPlayerUUID(player.getUniqueId());
+                player.sendMessage("System deleted.");
 
             }
 
