@@ -2,11 +2,13 @@ package com.gmail.kurumitk78.systemswap;
 
 import com.gmail.kurumitk78.systemswap.commands.AlterCommand;
 import com.gmail.kurumitk78.systemswap.commands.SystemCommand;
+import com.gmail.kurumitk78.systemswap.database.SQLiteHandler;
 import com.gmail.kurumitk78.systemswap.listeners.chatListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -19,6 +21,12 @@ public final class SystemSwap extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        SQLiteHandler.connect();
+       if(this.getConfig().get("pluginSetup") != "true"){
+           SQLiteHandler.firstRun();
+           this.getConfig().set("pluginSetup", "true");
+       }
+
         this.getCommand("system").setExecutor(new SystemCommand());
         this.getCommand("alters").setExecutor(new AlterCommand());
         Bukkit.getPluginManager().registerEvents(new chatListener(), this);
@@ -50,6 +58,7 @@ public final class SystemSwap extends JavaPlugin {
         }
         systemMapPlayerUUID.put(playerUUID, new System(systemUUID, playerUUID));
         systemMapSystemUUID.put(systemUUID, systemMapPlayerUUID.get(playerUUID));
+        SQLiteHandler.dbCall("INSERT INTO systems(systemUUID, PlayerUUID) VALUES('" + systemUUID.toString() + "', '" + playerUUID.toString() + "');");
         return systemUUID;
     }
     public static void deleteSystemPlayerUUID(UUID playerUUID){

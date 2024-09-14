@@ -1,5 +1,6 @@
 package com.gmail.kurumitk78.systemswap;
 
+import com.gmail.kurumitk78.systemswap.database.SQLiteHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -31,6 +32,7 @@ public class System {
         }
 
         Alters.put(alterUUID, new Alter(name, alterUUID, systemUUID));
+        SQLiteHandler.dbCall("INSERT INTO alters(alterUUID, name, systemUUID) VALUES('" + alterUUID.toString() + "', '" + name + "', '" + systemUUID + "');");
         return alterUUID;
     }
 

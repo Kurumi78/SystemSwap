@@ -3,6 +3,7 @@ package com.gmail.kurumitk78.systemswap.commands;
 import com.gmail.kurumitk78.systemswap.Alter;
 import com.gmail.kurumitk78.systemswap.System;
 import com.gmail.kurumitk78.systemswap.SystemSwap;
+import com.gmail.kurumitk78.systemswap.database.SQLiteHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,10 +21,10 @@ public class SystemCommand implements CommandExecutor {
         if(commandSender instanceof Player) {
             switch(args[0].toLowerCase()) {
                 case "create":
-                    createAlterCommand((Player) commandSender);
+                    createSystemCommand((Player) commandSender);
                     break;
                 case "delete":
-                    deleteAlterCommand((Player) commandSender);
+                    deleteSystemCommand((Player) commandSender);
                     break;
                 case "front":
                     setFronterCommand((Player) commandSender, args[1]);
@@ -37,7 +38,7 @@ public class SystemCommand implements CommandExecutor {
     }
 
 
-    private void createAlterCommand(Player player){
+    private void createSystemCommand(Player player){
         if(SystemSwap.getSystemFromPlayerUUID(player.getUniqueId()) == null){
             UUID returnedUUID = SystemSwap.createSystem(player.getUniqueId());
             player.sendMessage("System created using unique ID " + returnedUUID.toString());
@@ -50,7 +51,7 @@ public class SystemCommand implements CommandExecutor {
 
     }
 
-    private void deleteAlterCommand(Player player){
+    private void deleteSystemCommand(Player player){
             if(SystemSwap.getSystemFromPlayerUUID(player.getUniqueId()) != null){
              UUID systemUUID = SystemSwap.getSystemFromPlayerUUID(player.getUniqueId()).getSystemUUID();
                 SystemSwap.deleteSystemSystemUUID(systemUUID);
