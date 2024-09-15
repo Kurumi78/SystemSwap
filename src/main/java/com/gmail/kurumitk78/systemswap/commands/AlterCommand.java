@@ -3,6 +3,7 @@ package com.gmail.kurumitk78.systemswap.commands;
 import com.gmail.kurumitk78.systemswap.Alter;
 import com.gmail.kurumitk78.systemswap.System;
 import com.gmail.kurumitk78.systemswap.SystemSwap;
+import com.gmail.kurumitk78.systemswap.database.SQLiteHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,6 +23,20 @@ public class AlterCommand implements CommandExecutor {
             }
             if(args[0].equalsIgnoreCase("set")){
                 setAlterDataCommand(args, (Player)commandSender);
+            }
+            switch(args[0].toLowerCase()) {
+                case "create":
+                    createAlterCommand(args, (Player) commandSender);
+                    break;
+                case "set":
+                    setAlterDataCommand(args, (Player) commandSender);
+                    break;
+                case "delete":
+                    deleteAlterCommand(args, (Player) commandSender);
+                    break;
+                default:
+                    commandSender.sendMessage("Command usage: /alter (create/set) (name) <setting*> <value>");
+                    break;
             }
         }
         else{ //Else for checking if player
@@ -49,6 +64,22 @@ public class AlterCommand implements CommandExecutor {
             return;
         }
 
+    }
+    public void deleteAlterCommand(String[] args, Player sender){
+        if(SystemSwap.isSystem(sender.getUniqueId())){
+            if(args.length == 1) {
+                sender.sendMessage("usage /alter delete (name)");
+
+            }
+            else{
+                Alter deletingAlter = Alter.getAlterfromName(args[2], sender.getUniqueId());
+                if(deletingAlter != null){
+                    SystemSwap.getSystemFromPlayerUUID(sender.getUniqueId()).deleteAlter(deletingAlter.getUniqueID());
+                    SQLiteHandler.dbCall("statement to remove alter from Alters table");
+                }
+            }
+
+        }
     }
 
     public void setAlterDataCommand(String[] args, Player sender){

@@ -36,9 +36,15 @@ public class System {
             alterUUID = UUID.randomUUID();
         }
 
+
         Alters.put(alterUUID, new Alter(name, alterUUID, systemUUID));
         SQLiteHandler.dbCall("INSERT INTO alters(alterUUID, name, systemUUID) VALUES('" + alterUUID.toString() + "', '" + name + "', '" + systemUUID + "');");
         return alterUUID;
+    }
+    public void deleteAlter(UUID alterUUID){
+         Alters.remove(alterUUID);
+         Alter.removeAltertoAllAlters(alterUUID);
+
     }
     public void initPlayerAlters(ResultSet playerData) throws SQLException {
         HashMap<UUID, String> proxyData = new HashMap<UUID, String>();

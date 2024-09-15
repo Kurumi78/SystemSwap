@@ -67,5 +67,8 @@ public class Alter {
     public static void addAltertoAllAlters(UUID toAddUUID, Alter toAddAlter){
        AllAlters.put(toAddUUID, toAddAlter);
     }
+    public static void removeAltertoAllAlters(UUID toRemoveUUID){
+        AllAlters.remove(toRemoveUUID);
+    }
 
 }

@@ -31,6 +31,7 @@ public class SystemCommand implements CommandExecutor {
                     break;
                 default:
                     commandSender.sendMessage("Command usage: /system (create/delete/front) <New Fronter>");
+                    break;
 
             }
 
@@ -60,6 +61,7 @@ public class SystemCommand implements CommandExecutor {
              UUID systemUUID = SystemSwap.getSystemFromPlayerUUID(player.getUniqueId()).getSystemUUID();
                 SystemSwap.deleteSystemSystemUUID(systemUUID);
                 SystemSwap.deleteSystemPlayerUUID(player.getUniqueId());
+                SQLiteHandler.dbCall("statement to delete system from system table");
                 player.sendMessage("System deleted.");
 
             }
