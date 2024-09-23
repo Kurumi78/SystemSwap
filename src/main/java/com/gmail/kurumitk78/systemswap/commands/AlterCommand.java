@@ -72,10 +72,10 @@ public class AlterCommand implements CommandExecutor {
 
             }
             else{
-                Alter deletingAlter = Alter.getAlterfromName(args[2], sender.getUniqueId());
+                Alter deletingAlter = Alter.getAlterfromName(args[1], sender.getUniqueId());
                 if(deletingAlter != null){
                     SystemSwap.getSystemFromPlayerUUID(sender.getUniqueId()).deleteAlter(deletingAlter.getUniqueID());
-                    SQLiteHandler.dbCall("statement to remove alter from Alters table");
+                    SQLiteHandler.dbCall("DELETE FROM alters WHERE alterUUID = '" + deletingAlter.getUniqueID() + "'");
                 }
             }
 
