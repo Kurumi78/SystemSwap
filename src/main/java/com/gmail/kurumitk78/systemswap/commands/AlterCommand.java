@@ -35,7 +35,7 @@ public class AlterCommand implements CommandExecutor {
                     deleteAlterCommand(args, (Player) commandSender);
                     break;
                 default:
-                    commandSender.sendMessage("Command usage: /alter (create/set) (name) <setting*> <value>");
+                    commandSender.sendMessage("Command usage: /alter (create/set*/delete) (name) <setting*> <value>");
                     break;
             }
         }
