@@ -18,25 +18,27 @@ public class AlterCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if(commandSender instanceof Player) {
-            if(args[0].equalsIgnoreCase("create")){
-                createAlterCommand(args, (Player)commandSender);
-            }
-            if(args[0].equalsIgnoreCase("set")){
-                setAlterDataCommand(args, (Player)commandSender);
-            }
-            switch(args[0].toLowerCase()) {
-                case "create":
+            if(args[0] != null) {
+                if (args[0].equalsIgnoreCase("create")) {
                     createAlterCommand(args, (Player) commandSender);
-                    break;
-                case "set":
+                }
+                if (args[0].equalsIgnoreCase("set")) {
                     setAlterDataCommand(args, (Player) commandSender);
-                    break;
-                case "delete":
-                    deleteAlterCommand(args, (Player) commandSender);
-                    break;
-                default:
-                    commandSender.sendMessage("Command usage: /alter (create/set*/delete) (name) <setting*> <value>");
-                    break;
+                }
+                switch (args[0].toLowerCase()) {
+                    case "create":
+                        createAlterCommand(args, (Player) commandSender);
+                        break;
+                    case "set":
+                        setAlterDataCommand(args, (Player) commandSender);
+                        break;
+                    case "delete":
+                        deleteAlterCommand(args, (Player) commandSender);
+                        break;
+                    default:
+                        commandSender.sendMessage("Command usage: /alter (create/set*/delete) (name) <setting*> <value>");
+                        break;
+                }
             }
         }
         else{ //Else for checking if player

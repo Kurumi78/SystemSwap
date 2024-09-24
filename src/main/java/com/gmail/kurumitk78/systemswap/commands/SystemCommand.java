@@ -19,22 +19,24 @@ public class SystemCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if(commandSender instanceof Player) {
-            switch(args[0].toLowerCase()) {
-                case "create":
-                    createSystemCommand((Player) commandSender);
-                    break;
-                case "delete":
-                    deleteSystemCommand((Player) commandSender);
-                    break;
-                case "front":
-                    setFronterCommand((Player) commandSender, args[1]);
-                    break;
-                default:
-                    commandSender.sendMessage("Command usage: /system (create/delete/front) <New Fronter>");
-                    break;
+            if (args[0] != null) {
+                switch (args[0].toLowerCase()) {
+                    case "create":
+                        createSystemCommand((Player) commandSender);
+                        break;
+                    case "delete":
+                        deleteSystemCommand((Player) commandSender);
+                        break;
+                    case "front":
+                        setFronterCommand((Player) commandSender, args[1]);
+                        break;
+                    default:
+                        commandSender.sendMessage("Command usage: /system (create/delete/front) <New Fronter>");
+                        break;
+
+                }
 
             }
-
         }
         else{ //Else for checking if player
             Bukkit.getLogger().log(Level.WARNING, "Only a player may use this command");
