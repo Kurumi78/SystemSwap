@@ -18,7 +18,7 @@ public class AlterCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if(commandSender instanceof Player) {
-            if(args[0] != null) {
+            if(args.length >= 1) {
                 if (args[0].equalsIgnoreCase("create")) {
                     createAlterCommand(args, (Player) commandSender);
                 }

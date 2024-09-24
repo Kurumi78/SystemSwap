@@ -19,7 +19,7 @@ public class SystemCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if(commandSender instanceof Player) {
-            if (args[0] != null) {
+            if (args.length >= 1) {
                 switch (args[0].toLowerCase()) {
                     case "create":
                         createSystemCommand((Player) commandSender);
