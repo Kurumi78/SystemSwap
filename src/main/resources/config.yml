@@ -1,0 +1,14 @@
+PluginPrefix: '[SystemSwap]'
+
+#[player] = player username, [nickname] = nickname to set
+#Presets (default is Essentials)
+#
+#Essentials
+#NickCommand: nick [player] [nickname]
+#
+#Carbon
+#NickCommand: nick player [player] [nickname]
+#
+#If you need help figuring out what to set join my discord at https://discord.com/invite/euUyuZhgap
+NickCommand: nick [player] [nickname]
+

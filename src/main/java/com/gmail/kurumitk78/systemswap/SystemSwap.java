@@ -24,9 +24,9 @@ public final class SystemSwap extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.saveDefaultConfig();
         SystemSwapInstance = this;
        if(this.getConfig().get("pluginSetup") != "true"){
+           this.saveDefaultConfig();
            SQLiteHandler.firstRun();
            this.getConfig().set("pluginSetup", "true");
            this.saveConfig();

@@ -96,7 +96,10 @@ public class System {
         SQLiteHandler.dbCall("UPDATE systems SET 'fronterUUID' = '"+ newFronter.getUniqueID().toString() + "' WHERE systemUUID = ' " +systemUUID + "';");
         Bukkit.getPlayer(accountUUID).sendMessage("Fronter changed to " + newFronter.getName());
         if(newFronter.getNickname() != ""){
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nick player " + Bukkit.getPlayer(accountUUID).getName() + " " + newFronter.getNickname());
+            String nickCommand = SystemSwap.SystemSwapInstance.getConfig().getString("NickCommand");
+            nickCommand = nickCommand.replace("[player]", Bukkit.getPlayer(accountUUID).getName());
+            nickCommand = nickCommand.replace("[nickname]", newFronter.getNickname());
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), nickCommand);
         }
     }
 
