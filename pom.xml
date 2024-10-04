@@ -6,7 +6,7 @@
 
   <groupId>com.gmail.kurumitk78</groupId>
   <artifactId>SystemSwap</artifactId>
-  <version>prealpha</version>
+  <version>prealpha-3</version>
   <packaging>jar</packaging>
 
   <name>SystemSwap</name>
