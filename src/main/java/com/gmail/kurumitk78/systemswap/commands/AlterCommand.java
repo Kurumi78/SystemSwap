@@ -19,12 +19,6 @@ public class AlterCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if(commandSender instanceof Player) {
             if(args.length >= 1) {
-                if (args[0].equalsIgnoreCase("create")) {
-                    createAlterCommand(args, (Player) commandSender);
-                }
-                if (args[0].equalsIgnoreCase("set")) {
-                    setAlterDataCommand(args, (Player) commandSender);
-                }
                 switch (args[0].toLowerCase()) {
                     case "create":
                         createAlterCommand(args, (Player) commandSender);
