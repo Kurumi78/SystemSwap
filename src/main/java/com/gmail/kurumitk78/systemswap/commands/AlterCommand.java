@@ -34,7 +34,9 @@ public class AlterCommand implements CommandExecutor {
                         break;
                 }
             }
+            else{commandSender.sendMessage("Command usage: /alter (create/set*/delete) (name) <setting*> <value>");}
         }
+
         else{ //Else for checking if player
             Bukkit.getLogger().log(Level.WARNING, "Only a player may use this command");
 
@@ -72,34 +74,46 @@ public class AlterCommand implements CommandExecutor {
                 if(deletingAlter != null){
                     SystemSwap.getSystemFromPlayerUUID(sender.getUniqueId()).deleteAlter(deletingAlter.getUniqueID());
                     SQLiteHandler.dbCall("DELETE FROM alters WHERE alterUUID = '" + deletingAlter.getUniqueID() + "'");
+                    sender.sendMessage("Alter " + args[1] + " deleted successfully.");
                 }
+                else{sender.sendMessage("Alter with name " + args[1] + " not found.");}
             }
 
         }
     }
 
     public void setAlterDataCommand(String[] args, Player sender){
-        if(SystemSwap.isSystem(sender.getUniqueId())){
-            Alter modifiedAlter = Alter.getAlterfromName(args[1],sender.getUniqueId());
-            if(Objects.isNull(modifiedAlter)){sender.sendMessage("No Alters found in your system named " + args[1]); return;}
-            switch(args[2]){
-                case "name":
-                    modifiedAlter.setName(args[3]);
-                    sender.sendMessage("Name successfully updated");
-                    break;
-                case "nickname":
-                    modifiedAlter.setNickname(args[3]);
-                    sender.sendMessage("Nickname successfully updated");
-                    break;
-                case "proxytag":
-                    modifiedAlter.setProxytag(args[3]);
-                    sender.sendMessage("Proxytag successfully updated");
-                    break;
-                case "description":
-                    modifiedAlter.setDescription(args[3]);
-                    sender.sendMessage("Description successfully updated");
-                    break;
-
+        if(SystemSwap.isSystem(sender.getUniqueId())) {
+            if (args.length < 2) {
+                sender.sendMessage("Command usage: /alter set (name) (name/nickname/proxytag/description) <value>");
+            } else {
+                Alter modifiedAlter = Alter.getAlterfromName(args[1], sender.getUniqueId());
+                if (Objects.isNull(modifiedAlter)) {
+                    sender.sendMessage("No Alters found in your system named " + args[1]);
+                    return;
+                }
+                if (args.length >= 4) {
+                    switch (args[2]) {
+                        case "name":
+                            modifiedAlter.setName(args[3]);
+                            sender.sendMessage("Name successfully updated");
+                            break;
+                        case "nickname":
+                            modifiedAlter.setNickname(args[3]);
+                            sender.sendMessage("Nickname successfully updated");
+                            break;
+                        case "proxytag":
+                            modifiedAlter.setProxytag(args[3]);
+                            sender.sendMessage("Proxytag successfully updated");
+                            break;
+                        case "description":
+                            modifiedAlter.setDescription(args[3]);
+                            sender.sendMessage("Description successfully updated");
+                            break;
+                    }
+                } else {
+                    sender.sendMessage("Command usage: /alter set (name) (name/nickname/proxytag/description) <value>");
+                }
             }
         }
         else{sender.sendMessage("Only systems may use this command"); return; }
