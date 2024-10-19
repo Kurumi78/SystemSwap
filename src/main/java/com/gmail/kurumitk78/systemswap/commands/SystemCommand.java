@@ -37,6 +37,7 @@ public class SystemCommand implements CommandExecutor {
                 }
 
             }
+            else{commandSender.sendMessage("Command usage: /system (create/delete/front) <New Fronter>");}
         }
         else{ //Else for checking if player
             Bukkit.getLogger().log(Level.WARNING, "Only a player may use this command");
@@ -74,7 +75,7 @@ public class SystemCommand implements CommandExecutor {
         ArrayList<Alter> alters = new ArrayList<>();
         alters.addAll(playerSystem.getAlterList().values());
         for(int iterations = 0; iterations < alters.size(); iterations++) {
-               if(alters.get(iterations).getName().toLowerCase() == alterName){
+               if(alters.get(iterations).getName().toLowerCase().equals(alterName.toLowerCase())){
                    playerSystem.setFronter(alters.get(iterations));
                    break;
                }
