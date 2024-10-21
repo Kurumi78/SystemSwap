@@ -28,8 +28,15 @@ public class SystemCommand implements CommandExecutor {
                         deleteSystemCommand((Player) commandSender);
                         break;
                     case "front":
-                        setFronterCommand((Player) commandSender, args[1]);
-                        break;
+                        if(args.length >= 2) {
+                            setFronterCommand((Player) commandSender, args[1]);
+                            break;
+                        }
+                        else {
+                            commandSender.sendMessage("Command usage: /system (create/delete/front) <New Fronter>");
+                            break;
+                        }
+
                     default:
                         commandSender.sendMessage("Command usage: /system (create/delete/front) <New Fronter>");
                         break;
