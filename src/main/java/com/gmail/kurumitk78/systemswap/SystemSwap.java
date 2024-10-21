@@ -76,6 +76,10 @@ public final class SystemSwap extends JavaPlugin {
 
     public static void initPlayerSystem(ResultSet playerData, UUID playerUUID) throws SQLException {
         UUID systemUUID;
+        if(playerData.getString("systemUUID") == null){
+            playerData.close();
+            return;   //This should only ever happen if the player isnt a system.
+        }
         systemUUID = UUID.fromString(playerData.getString("systemUUID"));
         playerData.close();
         ResultSet alterData = SQLiteHandler.dbCallReturn("SELECT * FROM alters WHERE systemUUID = '" +systemUUID + "';");
