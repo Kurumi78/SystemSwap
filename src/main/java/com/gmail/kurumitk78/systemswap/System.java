@@ -109,9 +109,12 @@ public class System {
         Alters.forEach((key, value) -> {
             boolean containstaglambda = false;
             int proxytaglength = value.getProxytag().length();
+
+            if(text.length() > proxytaglength){
             String shortenedtext = text.substring(0, proxytaglength);
            // Bukkit.getLogger().log(Level.WARNING, "proxylength is " + proxytaglength + " and shortenedtext is" + shortenedtext + " and proxy tag is " + value.getProxytag());
             if(shortenedtext.equals(value.getProxytag())&& value.getProxytag().length() != 0){ containstag.set(true);}
+            }
         });
         return containstag.get();
     }
